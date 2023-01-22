@@ -3,8 +3,8 @@ package Entities;
 public class AlbunsDeMusica extends Produto {
     String musicosBandas, generos, selos;
 
-    public AlbunsDeMusica(int id, String nome, double preco, int quantidade, String musicosBandas, String generos, String selos) {
-        super(id, nome, preco, quantidade);
+    public AlbunsDeMusica(int id, String nome, double preco, int quantidade, String musicosBandas, String generos, String selos, int classificacaoIndicativa) {
+        super(id, nome, preco, quantidade, classificacaoIndicativa);
         this.musicosBandas = musicosBandas;
         this.generos = generos;
         this.selos = selos;

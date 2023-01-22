@@ -3,8 +3,8 @@ package Entities;
 public class Livros extends Produto {
     String genero, escritor, editora;
 
-    public Livros(int id, String nome, double preco, int quantidade, String genero, String escritor, String editora) {
-        super(id, nome, preco, quantidade);
+    public Livros(int id, String nome, double preco, int quantidade, String genero, String escritor, String editora, int classificacaoIndicativa) {
+        super(id, nome, preco, quantidade,classificacaoIndicativa);
         this.genero = genero;
         this.escritor = escritor;
         this.editora = editora;

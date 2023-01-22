@@ -5,13 +5,17 @@ public class Produto {
     String nome;
     double preco;
     int quantidade;
+    int classificacaoIndicativa;
 
-    public Produto(int id, String nome, double preco, int quantidade) {
+    public Produto(int id, String nome, double preco, int quantidade, int classificacaoIndicativa) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
-    }
+        this.classificacaoIndicativa = classificacaoIndicativa;
+
+
+}
 
     @Override
     public String toString() {
@@ -37,5 +41,9 @@ public class Produto {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public int getClassificacaoIndicativa() {
+        return classificacaoIndicativa;
     }
 }

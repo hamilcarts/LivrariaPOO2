@@ -21,6 +21,8 @@ public class Livraria {
         Double preco = scanDouble();
         System.out.println("Digite a quantidade comprada");
         int quantidade = scanInt();
+        System.out.println("Digite a Classificação indicativa");
+        int classificacaoIndicativa = scanInt();
 
         switch (opcao) {
             case 1 -> {
@@ -30,7 +32,7 @@ public class Livraria {
                 String escritor = scanString();
                 System.out.println("Digite a editora do livro");
                 String editora = scanString();
-                Livros livro = new Livros(id, nome, preco, quantidade, genero, escritor, editora);
+                Livros livro = new Livros(id, nome, preco, quantidade, genero, escritor, editora, classificacaoIndicativa);
                 estoque.adicionarLivro(livro);
             }
             case 2 -> {
@@ -40,7 +42,7 @@ public class Livraria {
                 String genero = scanString();
                 System.out.println("Digite o estudio do jogo");
                 String estudio = scanString();
-                Jogos jogos = new Jogos(id, nome, preco, quantidade, distribuidora, genero, estudio);
+                Jogos jogos = new Jogos(id, nome, preco, quantidade, distribuidora, genero, estudio, classificacaoIndicativa);
                 estoque.jogos.add(jogos);
             }
             case 3 -> {
@@ -52,7 +54,7 @@ public class Livraria {
                 String genero = scanString();
                 System.out.println("Digite os produtores do filme");
                 String produtores = scanString();
-                Filmes filmes = new Filmes(id, nome, preco, quantidade, estudio, diretores, genero, produtores);
+                Filmes filmes = new Filmes(id, nome, preco, quantidade, estudio, diretores, genero, produtores, classificacaoIndicativa);
                 estoque.filmes.add(filmes);
             }
             case 4 -> {
@@ -62,13 +64,13 @@ public class Livraria {
                 String genero = scanString();
                 System.out.println("Digite os selos do álbum");
                 String selos = scanString();
-                AlbunsDeMusica albunsDeMusica = new AlbunsDeMusica(id, nome, preco, quantidade, musicos, genero, selos);
+                AlbunsDeMusica albunsDeMusica = new AlbunsDeMusica(id, nome, preco, quantidade, musicos, genero, selos, classificacaoIndicativa);
                 estoque.albunsDeMusicas.add(albunsDeMusica);
             }
             case 5 -> {
                 System.out.println("Digite o tipo do brinquedo");
                 String tipo = scanString();
-                Brinquedos brinquedos = new Brinquedos(id, nome, preco, quantidade, tipo);
+                Brinquedos brinquedos = new Brinquedos(id, nome, preco, quantidade, tipo, classificacaoIndicativa);
                 estoque.brinquedos.add(brinquedos);
             }
         }
@@ -110,7 +112,7 @@ public class Livraria {
     }
 
 
-    public void vender() {
+    public void vender(Cliente cliente) {
         System.out.println("REALIZAR VENDA");
         selecionarCategoria();
         int opcao = 0;
@@ -123,33 +125,53 @@ public class Livraria {
         int quantidade = scanInt();
         switch (opcao) {
             case 1 -> {
-                double preco = estoque.livros.get(id).preco;
-                caixa.adicionarDinheiro(preco * quantidade);
-                estoque.livros.get(id).quantidade = estoque.livros.get(id).quantidade - quantidade;
+                if (Cliente.calcularIdade(String.valueOf(cliente)) > estoque.livros.get(id).getClassificacaoIndicativa()) {
+                    double preco = estoque.livros.get(id).preco;
+                    caixa.adicionarDinheiro(preco * quantidade);
+                    estoque.livros.get(id).quantidade = estoque.livros.get(id).quantidade - quantidade;
+                } else {
+                    System.out.println("idade insuficiente para comrprar este produto");
+                }
             }
             case 2 -> {
-                double preco = estoque.jogos.get(id).preco;
-                caixa.adicionarDinheiro(preco * quantidade);
-                estoque.jogos.get(id).quantidade = estoque.jogos.get(id).quantidade - quantidade;
+                if (Cliente.calcularIdade(String.valueOf(cliente)) > estoque.jogos.get(id).getClassificacaoIndicativa()) {
+                    double preco = estoque.jogos.get(id).preco;
+                    caixa.adicionarDinheiro(preco * quantidade);
+                    estoque.jogos.get(id).quantidade = estoque.jogos.get(id).quantidade - quantidade;
+                } else {
+                    System.out.println("idade insuficiente para comrprar este produto");
+                }
             }
             case 3 -> {
-                double preco = estoque.filmes.get(id).preco;
-                if ((preco * quantidade) > 200) {
-                    caixa.adicionarDinheiro(preco * quantidade * 0.85);
+                if (Cliente.calcularIdade(String.valueOf(cliente)) > estoque.filmes.get(id).getClassificacaoIndicativa()) {
+                    double preco = estoque.filmes.get(id).preco;
+                    if ((preco * quantidade) > 200) {
+                        caixa.adicionarDinheiro(preco * quantidade * 0.85);
+                    } else {
+                        caixa.adicionarDinheiro(preco * quantidade);
+                    }
+                    estoque.filmes.get(id).quantidade = estoque.filmes.get(id).quantidade - quantidade;
                 } else {
-                    caixa.adicionarDinheiro(preco * quantidade);
+                    System.out.println("idade insuficiente para comrprar este produto");
                 }
-                estoque.filmes.get(id).quantidade = estoque.filmes.get(id).quantidade - quantidade;
             }
             case 4 -> {
-                double preco = estoque.albunsDeMusicas.get(id).preco;
-                caixa.adicionarDinheiro(preco * quantidade);
-                estoque.albunsDeMusicas.get(id).quantidade = estoque.albunsDeMusicas.get(id).quantidade - quantidade;
+                if (Cliente.calcularIdade(String.valueOf(cliente)) > estoque.albunsDeMusicas.get(id).getClassificacaoIndicativa()) {
+                    double preco = estoque.albunsDeMusicas.get(id).preco;
+                    caixa.adicionarDinheiro(preco * quantidade);
+                    estoque.albunsDeMusicas.get(id).quantidade = estoque.albunsDeMusicas.get(id).quantidade - quantidade;
+                } else {
+                    System.out.println("idade insuficiente para comrprar este produto");
+                }
             }
             case 5 -> {
-                double preco = estoque.brinquedos.get(id).preco;
-                caixa.adicionarDinheiro(preco * quantidade);
-                estoque.brinquedos.get(id).quantidade = estoque.brinquedos.get(id).quantidade - quantidade;
+                if (Cliente.calcularIdade(String.valueOf(cliente)) > estoque.brinquedos.get(id).getClassificacaoIndicativa()) {
+                    double preco = estoque.brinquedos.get(id).preco;
+                    caixa.adicionarDinheiro(preco * quantidade);
+                    estoque.brinquedos.get(id).quantidade = estoque.brinquedos.get(id).quantidade - quantidade;
+                } else {
+                    System.out.println("idade insuficiente para comrprar este produto");
+                }
             }
         }
     }

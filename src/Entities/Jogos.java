@@ -3,8 +3,8 @@ package Entities;
 public class Jogos extends Produto {
     String distribuidora, genero, estudio;
 
-    public Jogos(int id, String nome, double preco, int quantidade, String distribuidora, String genero, String estudio) {
-        super(id, nome, preco, quantidade);
+    public Jogos(int id, String nome, double preco, int quantidade, String distribuidora, String genero, String estudio, int classificacaoIndicativa) {
+        super(id, nome, preco, quantidade, classificacaoIndicativa);
         this.distribuidora = distribuidora;
         this.genero = genero;
         this.estudio = estudio;

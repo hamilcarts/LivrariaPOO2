@@ -12,6 +12,12 @@ public class Cliente {
     String dataNascimento;
 
 
+    public Cliente(String nome, String rg, String cpf, String dataNascimento) {
+        this.nome = nome;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+    }
 
     public static int calcularIdade(String dataDeNascimentoString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
